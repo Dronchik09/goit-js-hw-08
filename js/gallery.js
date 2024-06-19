@@ -70,11 +70,12 @@ function openModal(event) {
     if (event.target === event.currentTarget) {
       return;
     }
-    const modal = basicLightbox.create(`
+    const modalContent = `
         <div class="modal">
        <img src="${event.target.dataset.source}" alt="${event.target.alt}" width=1112px height=640px
        </div>
-    `);
+    `;
+    const modal = basicLightbox.create(modalContent);
      modal.show();
 }
 const newImages = images.map(image => {
@@ -84,4 +85,4 @@ const newImages = images.map(image => {
     <img class="gallery-image" src="${preview}" data-source="${original}" alt="${description}" width=360px height=200px
     </li>`;
     gallery.insertAdjacentHTML("beforeend", li);
-})
+});
