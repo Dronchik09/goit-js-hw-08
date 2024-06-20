@@ -67,12 +67,12 @@ const gallery = document.querySelector(".gallery");
 gallery.addEventListener("click", openModal);
 function openModal(event) {
     event.preventDefault();
-    if (event.target === event.currentTarget) {
+    if (event.target.nodeName !== "IMG") {
       return;
     }
     const modalContent = `
         <div class="modal">
-       <img src="${event.target.dataset.source}" alt="${event.target.alt}" width=1112px height=640px
+       <img src="${event.target.dataset.source}" alt="${event.target.alt}" width=1112px height=640px/>
        </div>
     `;
     const modal = basicLightbox.create(modalContent);
@@ -80,9 +80,10 @@ function openModal(event) {
 }
 const newImages = images.map(image => {
     const {original, preview, description} = image;
-    const li = `<li class="gallery-item">
+    return `<li class="gallery-item">
     <a class="gallery-link" href="${original}"/>
-    <img class="gallery-image" src="${preview}" data-source="${original}" alt="${description}" width=360px height=200px
+    <img class="gallery-image" src="${preview}" data-source="${original}" alt="${description}" width=360px height=200px/>
     </li>`;
-    gallery.insertAdjacentHTML("beforeend", li);
+    
 });
+gallery.insertAdjacentHTML("beforeend", newImages.join(""));
